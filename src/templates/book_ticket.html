@@ -1,0 +1,99 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+        <div class="card shadow">
+
+            <div class="card-header text-center">
+
+                <h3>
+
+                    Book Ticket
+
+                </h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <h4>
+
+                    {{ movie.movie_name }}
+
+                </h4>
+
+                <p>
+
+                    <strong>Price :</strong>
+
+                    ₹ {{ movie.Price }}
+
+                </p>
+
+                <p>
+
+                    <strong>Available Seats :</strong>
+
+                    {{ movie.available_seats }}
+
+                </p>
+
+                <form
+                    action="/book-ticket"
+                    method="post"
+                >
+
+                    <input
+                        type="hidden"
+                        name="movie_id"
+                        value="{{ movie.id }}"
+                    >
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Number of Tickets
+
+                        </label>
+
+                        <input
+                            type="number"
+                            name="quantity"
+                            class="form-control"
+                            min="1"
+                            max="{{ movie.available_seats }}"
+                            required
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+                        Confirm Booking
+                    </button>
+
+                    <a
+                        href="/movie/{{ movie.id }}"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

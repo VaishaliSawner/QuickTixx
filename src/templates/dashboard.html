@@ -1,0 +1,57 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <h2>
+            Welcome to Movie Ticket Booking System
+        </h2>
+
+        <hr>
+
+        <h5>
+
+            Total Movies :
+
+            {{ total_movies }}
+
+        </h5>
+
+        <h5>
+
+            Your Role :
+
+            {{ role }}
+
+        </h5>
+
+        <div class="mt-4">
+
+            <a
+                href="/movies"
+                class="btn btn-primary"
+            >
+                View Movies
+            </a>
+
+            {% if role == "admin" %}
+
+            <a
+                href="/add-movie"
+                class="btn btn-success"
+            >
+                Add Movie
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

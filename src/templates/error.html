@@ -1,0 +1,51 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-danger">
+
+            <div class="card-header bg-danger text-white text-center">
+
+                <h3>
+                    Error
+                </h3>
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <h4 class="text-danger">
+
+                    {{ exc }}
+
+                </h4>
+
+                <br>
+
+                <a
+                    href="/dashboard"
+                    class="btn btn-primary"
+                >
+                    Go to Dashboard
+                </a>
+
+                <a
+                    href="javascript:history.back()"
+                    class="btn btn-secondary"
+                >
+                    Go Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    My Bookings
+</h2>
+
+{% if message %}
+
+<div class="alert alert-success">
+
+    {{ message }}
+
+</div>
+
+{% endif %}
+
+{% if bookings %}
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+
+        <tr>
+
+            <th>Movie</th>
+
+            <th>Quantity</th>
+
+            <th>Price</th>
+
+            <th>Total Amount</th>
+
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for booking in bookings %}
+
+        <tr>
+
+            <td>
+
+                {{ booking.movie.movie_name }}
+
+            </td>
+
+            <td>
+
+                {{ booking.quantity }}
+
+            </td>
+
+            <td>
+
+                ₹ {{ booking.movie.price }}
+
+            </td>
+
+            <td>
+
+                ₹ {{ booking.quantity * booking.movie.price }}
+
+            </td>
+
+            <td>
+
+                <a
+                    href="/cancel-booking/{{ booking.id }}"
+                    class="btn btn-danger btn-sm"
+                >
+                    Cancel
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% else %}
+
+<div class="alert alert-info">
+
+    No bookings found.
+
+</div>
+
+{% endif %}
+
+{% endblock %}

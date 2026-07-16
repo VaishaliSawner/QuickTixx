@@ -1,0 +1,106 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <img
+            src="{{ movie.image }}"
+            class="img-fluid rounded shadow"
+            alt="{{ movie.movie_name }}"
+        >
+
+    </div>
+
+    <div class="col-md-8">
+
+        <h2>
+
+            {{ movie.movie_name }}
+
+        </h2>
+
+        <hr>
+
+        <p>
+
+            <strong>Language :</strong>
+
+            {{ movie.language }}
+
+        </p>
+
+        <p>
+
+            <strong>Genre :</strong>
+
+            {{ movie.genre }}
+
+        </p>
+
+        <p>
+
+            <strong>Duration :</strong>
+
+            {{ movie.duration }}
+
+        </p>
+
+        <p>
+
+            <strong>Price :</strong>
+
+            ₹ {{ movie.price }}
+
+        </p>
+
+        <p>
+
+            <strong>Available Seats :</strong>
+
+            {{ movie.available_seats }}
+
+        </p>
+
+        <p>
+
+            <strong>Description :</strong>
+
+            {{ movie.description }}
+
+        </p>
+
+        {% if movie.available_seats > 0 %}
+
+        <a
+            href="/book-ticket/{{ movie.id }}"
+            class="btn btn-success"
+        >
+            Book Ticket
+        </a>
+
+        {% else %}
+
+        <button
+            class="btn btn-danger"
+            disabled
+        >
+            House Full
+        </button>
+
+        {% endif %}
+
+        <a
+            href="/movies"
+            class="btn btn-secondary"
+        >
+            Back
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Movies
+</h2>
+
+{% if message %}
+
+<div class="alert alert-success">
+
+    {{ message }}
+
+</div>
+
+{% endif %}
+
+<div class="row">
+
+    {% for movie in movies %}
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card h-100 shadow">
+
+            <img
+                src="{{ movie.image }}"
+                class="card-img-top"
+                height="300"
+            >
+
+            <div class="card-body">
+
+                <h4>
+
+                    {{ movie.movie_name }}
+
+                </h4>
+
+                <p>
+
+                    <strong>Language :</strong>
+
+                    {{ movie.language }}
+
+                </p>
+
+                <p>
+
+                    <strong>Genre :</strong>
+
+                    {{ movie.genre }}
+
+                </p>
+
+                <p>
+
+                    <strong>Duration :</strong>
+
+                    {{ movie.duration }}
+
+                </p>
+
+                <p>
+
+                    <strong>Price :</strong>
+
+                    ₹ {{ movie.price }}
+
+                </p>
+
+                <p>
+
+                    <strong>Available Seats :</strong>
+
+                    {{ movie.available_seats }}
+
+                </p>
+
+                <a
+                    href="/movie/{{ movie.id }}"
+                    class="btn btn-primary"
+                >
+                    View Details
+                </a>
+
+                {% if request.session.get("role") == "admin" %}
+
+                <a
+                    href="/edit-movie/{{ movie.id }}"
+                    class="btn btn-warning"
+                >
+                    Edit
+                </a>
+
+                <a
+                    href="/delete-movie/{{ movie.id }}"
+                    class="btn btn-danger"
+                >
+                    Delete
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

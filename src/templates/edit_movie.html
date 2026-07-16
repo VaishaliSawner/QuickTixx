@@ -1,0 +1,187 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card shadow">
+
+            <div class="card-header text-center">
+
+                <h3>Edit Movie</h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <form action="/edit-movie/{{ movie.id }}" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Movie Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="movie_name"
+                            class="form-control"
+                            value="{{ movie.movie_name }}"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Language
+                        </label>
+
+                        <input
+                            type="text"
+                            name="language"
+                            class="form-control"
+                            value="{{ movie.language }}"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Genre
+                        </label>
+
+                        <input
+                            type="text"
+                            name="genre"
+                            class="form-control"
+                            value="{{ movie.genre }}"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Duration
+                        </label>
+
+                        <input
+                            type="text"
+                            name="duration"
+                            class="form-control"
+                            value="{{ movie.duration }}"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Price
+                        </label>
+
+                        <input
+                            type="number"
+                            name="price"
+                            class="form-control"
+                            value="{{ movie.price }}"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Available Seats
+                        </label>
+
+                        <input
+                            type="number"
+                            name="available_seats"
+                            class="form-control"
+                            value="{{ movie.available_seats }}"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Movie Poster Image
+                        </label>
+
+                        <div class="mb-2">
+                            <img
+                                src="{{ movie.image }}"
+                                alt="Current poster"
+                                style="height:120px;"
+                            >
+                        </div>
+
+                        <input
+                            type="file"
+                            name="image"
+                            class="form-control"
+                            accept="image/*"
+                        >
+
+
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea
+                            name="description"
+                            class="form-control"
+                            rows="4"
+                            required
+                        >{{ movie.description }}</textarea>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-warning"
+                    >
+                        Update Movie
+                    </button>
+
+                    <a
+                        href="/movies"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+
+
+
+
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

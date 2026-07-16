@@ -1,0 +1,39 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<div class="text-center py-5">
+
+    <h1 class="mb-3">
+        🍿 Welcome to Movie Ticket Booking
+    </h1>
+
+    <p class="lead mb-4">
+        Book your favourite movie tickets in just a few clicks.
+    </p>
+
+    {% if request.session.get("user_id") %}
+
+        <a href="/dashboard" class="btn btn-primary btn-lg me-2">
+            Go to Dashboard
+        </a>
+
+        <a href="/movies" class="btn btn-outline-primary btn-lg">
+            Browse Movies
+        </a>
+
+    {% else %}
+
+        <a href="/login" class="btn btn-primary btn-lg me-2">
+            Login
+        </a>
+
+        <a href="/register" class="btn btn-outline-primary btn-lg">
+            Register
+        </a>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
