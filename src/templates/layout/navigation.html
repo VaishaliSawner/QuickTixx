@@ -15,6 +15,15 @@
                     </a>
                 </li>
 
+                {% if request.session.get("role") == "user" %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/chatbot">
+                        Chatbot
+                    </a>
+                </li>
+
+                {% endif %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="/movies">
                         Movies

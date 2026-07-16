@@ -9,6 +9,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
+from src.service.chatbot_service import ChatbotService
 from src. model.movie  import Movie
 from src.model.booking import Booking
 from src.service.booking_service import BookingService
@@ -262,3 +263,25 @@ async def cancel_booking(request: Request,id: int):
         booking_service = BookingService(session)
         await booking_service.cancel_booking(id)
         return RedirectResponse( "/my-bookings?message=Booking Cancelled Successfully",status_code=303)
+
+
+
+
+@app.get("/chatbot")
+async def chatbot_page(request: Request):
+    return templates.TemplateResponse(request, "chatbot.html", {"request": request})
+
+
+@app.post("/chatbot/ask")
+async def chatbot_ask(request: Request):
+    data = await request.json()
+    user_message = data.get("message", "")
+    history = data.get("history", [])
+
+    async with SessionLocal() as session:
+        chatbot_service = ChatbotService(session)
+        reply = await chatbot_service.get_reply(user_message, history)
+        return {"reply": reply}
+
+
+

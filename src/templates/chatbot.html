@@ -1,0 +1,103 @@
+{% extends "layout/bootstrap.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card shadow">
+
+            <div class="card-header text-center">
+                <h3>🎬 QuickTix Assistant</h3>
+            </div>
+
+            <div class="card-body">
+
+                <div id="chat-window"
+                     style="height:400px; overflow-y:auto; border:1px solid #ddd; padding:10px; margin-bottom:15px;">
+                    <div class="text-muted">
+                        Hi! Ask me about movies, genres, prices, or how to book a ticket.
+                    </div>
+                </div>
+
+                <form id="chat-form" class="d-flex">
+                    <input
+                        type="text"
+                        id="chat-input"
+                        class="form-control me-2"
+                        placeholder="Type your message..."
+                        autocomplete="off"
+                        required
+                    >
+                    <button type="submit" class="btn btn-primary">
+                        Send
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const chatWindow = document.getElementById("chat-window");
+    const chatForm = document.getElementById("chat-form");
+    const chatInput = document.getElementById("chat-input");
+
+    let history = [];
+
+    function addMessage(text, sender) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "mb-2 " + (sender === "user" ? "text-end" : "text-start");
+
+        const bubble = document.createElement("span");
+        bubble.className = "badge " + (sender === "user" ? "bg-primary" : "bg-secondary");
+        bubble.style.whiteSpace = "normal";
+        bubble.style.textAlign = "left";
+        bubble.style.display = "inline-block";
+        bubble.style.padding = "8px 12px";
+        bubble.textContent = text;
+
+        wrapper.appendChild(bubble);
+        chatWindow.appendChild(wrapper);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    chatForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        addMessage(message, "user");
+        chatInput.value = "";
+
+        addMessage("Typing...", "bot");
+
+        try {
+            const response = await fetch("/chatbot/ask", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: message, history: history })
+            });
+
+            const data = await response.json();
+
+            chatWindow.removeChild(chatWindow.lastChild);
+            addMessage(data.reply, "bot");
+
+            history.push({ role: "user", content: message });
+            history.push({ role: "assistant", content: data.reply });
+
+        } catch (err) {
+            chatWindow.removeChild(chatWindow.lastChild);
+            addMessage("Sorry, something went wrong. Please try again.", "bot");
+        }
+    });
+</script>
+
+{% endblock %}
